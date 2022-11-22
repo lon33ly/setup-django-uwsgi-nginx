@@ -1,5 +1,6 @@
 import os
 import socket
+import sys
 
 hostname = socket.gethostname()
 ipv4 = socket.gethostbyname(hostname)
@@ -17,13 +18,10 @@ os.system(f'sudo apt install python3.{python3_x_version}')
 os.system('sudo apt install python3-pip')
 os.system('sudo pip3 install virtualenv')
 os.system(f'sudo python3 -m virtualenv -p="/usr/bin/python3.{python3_x_version}" /home/{username}/venv')
-os.system(f'source /home/{username}/venv/bin/activate')
-os.system(f'pip install Django')
 
 project_name = str(input("Input name of project"))
 
-os.system(f'cd /home/{username}')
-os.system(f'python -m django startproject {project_name}')
+os.system(f'source /home/{username}/venv/bin/activate && pip install Django && cd /home/{username} && python -m django startproject {project_name}')
 
 os.rename(f'/home/{username}/{project_name}/{project_name}', f'/home/{username}/{project_name}/config')
 os.system(f'rm -f /home/{username}/{project_name}/config/settings.py')
