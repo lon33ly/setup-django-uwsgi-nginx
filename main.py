@@ -131,6 +131,6 @@ with open(f'/etc/systemd/system/emperor.uwsgi.service', 'w') as f:
     f.write(emperor_uwsgi_service)
 
 
-os.system(f'systemctl enable emperor.uwsgi.service')
-os.system(f'systemctl start emperor.uwsgi.service')
-os.system(f'systemctl status emperor.uwsgi.service')
+os.system(f'sudo systemctl enable emperor.uwsgi.service')
+os.system(f'sudo systemctl start emperor.uwsgi.service')
+os.system(f'sudo systemctl status emperor.uwsgi.service')
