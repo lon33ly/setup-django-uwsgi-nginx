@@ -127,7 +127,7 @@ ExecStart=/home/{username}/venv/bin/uwsgi --emperor /home/{username}/venv/vassal
 WantedBy=multi-user.target
 """.format(project_name=project_name, username=username)
 
-with open(f'etc/systemd/system/emperor.uwsgi.service', 'w') as f:
+with open(f'/etc/systemd/system/emperor.uwsgi.service', 'w') as f:
     f.write(emperor_uwsgi_service)
 
 
