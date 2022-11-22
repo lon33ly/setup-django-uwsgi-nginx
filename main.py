@@ -25,10 +25,10 @@ os.system(f'sudo apt install nginx')
 project_name = str(input("Input name of project"))
 
 os.system(f'source /home/{username}/venv/bin/activate && '
-          f'pip install Django && '
+          f'/home/{username}/venv/bin/python install Django && '
           f'cd /home/{username} && '
           f'python -m django startproject {project_name} && '
-          f'pip install uwsgi')
+          f'/home/{username}/venv/bin/python pip install uwsgi')
 
 os.rename(f'/home/{username}/{project_name}/{project_name}', f'/home/{username}/{project_name}/config')
 os.system(f'rm -f /home/{username}/{project_name}/config/settings.py')
@@ -85,7 +85,7 @@ with open(f'/home/{username}/{project_name}/uwsgi_params', 'w') as f:
 
 os.system(f'sudo ln -s /etc/nginx/sites-available/{project_name}.conf /etc/nginx/sites-enabled/')
 os.system(f'source /home/{username}/venv/bin/activate && '
-          f'python manage.py collectstatic')
+          f'/home/{username}/venv/bin/python manage.py collectstatic')
 os.system(f'sudo /etc/init.d/nginx restart')
 
 project_uwsgi_ini = """
