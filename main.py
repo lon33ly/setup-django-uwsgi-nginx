@@ -23,7 +23,7 @@ os.system(f'pip install Django')
 project_name = str(input("Input name of project"))
 
 os.system(f'cd /home/{username}')
-os.system(f'django-admin.py startproject {project_name}')
+os.system(f'python -m django startproject {project_name}')
 
 os.rename(f'/home/{username}/{project_name}/{project_name}', f'/home/{username}/{project_name}/config')
 os.system(f'rm -f /home/{username}/{project_name}/config/settings.py')
