@@ -1,36 +1,15 @@
 import os
 import socket
-import sys
+
 
 hostname = socket.gethostname()
 ipv4 = socket.gethostbyname(hostname)
 username = os.getlogin()
 
-os.system('sudo apt-get update')
-os.system('sudo apt-get upgrade')
-os.system('sudo apt update && sudo apt upgrade -y')
-os.system('sudo apt install software-properties-common -y')
-os.system('sudo add-apt-repository ppa:deadsnakes/ppa')
-
-python3_x_version = str(input("Python 3.x version (input x): "))
-
-os.system(f'sudo apt install python3.{python3_x_version}')
-os.system('sudo apt install python3-pip')
-os.system('sudo pip3 install virtualenv')
-os.system(f'sudo python3 -m virtualenv -p="/usr/bin/python3.{python3_x_version}" /home/{username}/venv')
-os.system(f'sudo apt-get install python3.{python3_x_version}-dev')
-os.system(f'sudo apt-get install gcc')
-os.system(f'sudo apt install nginx')
-
 project_name = str(input("Input name of project"))
 
-os.system(f'source /home/{username}/venv/bin/activate && '
-          f'/home/{username}/venv/bin/python install Django && '
-          f'cd /home/{username} && '
-          f'python -m django startproject {project_name} && '
-          f'/home/{username}/venv/bin/python pip install uwsgi')
+os.system(f'source script.sh {username} {project_name}')
 
-os.rename(f'/home/{username}/{project_name}/{project_name}', f'/home/{username}/{project_name}/config')
 os.system(f'rm -f /home/{username}/{project_name}/config/settings.py')
 os.system(f'cp settings.py /home/{username}/{project_name}/config/')
 
@@ -85,7 +64,7 @@ with open(f'/home/{username}/{project_name}/uwsgi_params', 'w') as f:
 
 os.system(f'sudo ln -s /etc/nginx/sites-available/{project_name}.conf /etc/nginx/sites-enabled/')
 os.system(f'source /home/{username}/venv/bin/activate && '
-          f'/home/{username}/venv/bin/python manage.py collectstatic')
+          f'/home/{username}/venv/bin/python /home/{username}/{project_name}/config/manage.py collectstatic')
 os.system(f'sudo /etc/init.d/nginx restart')
 
 project_uwsgi_ini = """
